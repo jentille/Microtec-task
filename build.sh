@@ -3,7 +3,14 @@
 # Exit immediately if any command fails
 set -e
 
-echo "  ~ Compiling SensorDataManager with g++..."
-g++ -g -o microtec_test SensorDataManager.cpp unit_tests_microtec.cpp -lpthread
+# === Configuration ===
+SRC_FILE="SensorDataManager.cpp"
+TEST_FILE="unit_tests_microtec.cpp"  # Change this to swap test/main files
+OUTPUT_BINARY="./microtec_test"
+GPP_FLAGS=("-g" "-o" "$OUTPUT_BINARY" "-lpthread")
 
-echo "  ~ Build successful. Output binary: ./microtec_test"
+# === Compilation ===
+echo "  ~ Compiling SensorDataManager with g++..."
+g++ "${GPP_FLAGS[@]}" "${SRC_FILE}" "${TEST_FILE}"
+
+echo "  ~ Build successful. Output binary: $OUTPUT_BINARY"
