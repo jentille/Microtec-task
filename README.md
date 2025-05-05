@@ -64,15 +64,17 @@ bash valgrind.sh
 ### Testing and Thread Safety
 This module is designed for use in multi-threaded environments. It uses std::mutex to guard access to shared buffers, ensuring thread-safe operation.
 
-A simple test harness (**[unit_tests_microtec.cpp](./unit_tests_microtec.cpp)**) runs three concurrent threads:
+The **[unit_tests_microtec.cpp](./unit_tests_microtec.cpp)** file launches three concurrent threads to simulate a realistic asynchronous environment:
 
-Simulates streaming density readings
+- `simulate_density_input()` — high-frequency (~1800 Hz) density samples
 
-Simulates position readings
+- `simulate_position_input()` — lower-frequency (~500 Hz) board positions
 
-Periodically queries statistics within a position window
+- `simulate_query()` — periodically queries the statistical summary over a position interval
 
-This setup mimics real-world concurrent usage and validates system behavior.
+These simulate how real hardware might drive the SensorDataManager and confirm thread-safety and correctness.
+
+
 
 ### Notes
 The build process uses `-lpthread` for POSIX thread support.
